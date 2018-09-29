@@ -12,8 +12,10 @@ namespace PatchworkLauncher {
 			ShowNewFolderButton = false,
 			SelectedPath = PathHelper.GetAbsolutePath("")
 		};
-		public guiInputGameFolder(string warningText = "") {
+
+		public guiInputGameFolder(string warningText = "", string  title = "") {
 			InitializeComponent();
+            guiTitle.Text = title;
 			guiWarningText.Text = warningText;
 		}
 

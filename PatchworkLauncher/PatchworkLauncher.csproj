@@ -206,6 +206,9 @@
     <EmbeddedResource Include="GUI\Forms\guiHome.resx">
       <DependentUpon>guiHome.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Forms\guiInputGameFolder.resx">
+      <DependentUpon>guiInputGameFolder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Forms\LogForm.resx">
       <DependentUpon>LogForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,8 +240,22 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>SET Framework="Patchwork"
+IF NOT EXIST $(TargetDir)Framework\%25Framework%25 mkdir $(TargetDir)Framework\%25Framework%25
+
+SET FILE_LIST=INIFileParser.dll Mono.Cecil.dll Mono.Cecil.Mdb.dll Mono.Cecil.Pdb.dll Mono.Cecil.Rocks.dll Patchwork.Attributes.dll Patchwork.Attributes.xml Patchwork.Engine.dll Patchwork.Engine.xml PatchworkLauncher.exe PatchworkLauncher.exe.config pevrfyrc.dll preferences.pw.xml readme.txt Serilog.dll Serilog.FullNetFx.dll Serilog.FullNetFx.xml Serilog.xml settings.pw.xml readme.txt
+(for %25%25a in (%25FILE_LIST%25) do (
+  copy $(TargetDir)%25%25a $(TargetDir)Framework\%25Framework%25\.
+))
+
+copy $(TargetDir)\..\..\..\AppInfoDLLProj\bin\Release\AppInfo.dll $(TargetDir)\Framework\%25Framework%25\.
+
+if exist $(TargetDir)%25Framework%25.zip del $(TargetDir)%25Framework%25.zip
+izarcc -a -r -p -cx $(TargetDir)%25Framework%25.zip Framework\</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del /s /q $(TargetDir)*.*
+rmdir /S /q *</PreBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <ItemGroup>

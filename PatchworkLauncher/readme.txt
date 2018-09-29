@@ -22,8 +22,12 @@ Using the program is straight-forward:
 
    **Note:** The dialog box will not display hidden files or folders.
 
-4. Go to the *Active Mods* menu and add the mod file(s) (usually ending with `.pw.dll`) to the list of mods, checking those you want enabled.
+4. Specify the folder that contains all the mods you have downloaded.
+
+   **Note:** The dialog box will not display hidden files or folders.
+
+5. Go to the *Active Mods* menu and add the mod file(s) (usually ending with `.pw.dll`) to the list of mods, checking those you want enabled.
  
    **Note:** Mod files so chosen will normally be copied to the `Mods` folder.
 
-5. Use *Launch with Mods* and *Launch without Mods* to start the game.
+6. Use *Launch with Mods* and *Launch without Mods* to start the game.

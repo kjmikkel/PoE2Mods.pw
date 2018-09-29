@@ -22,6 +22,12 @@ namespace PatchworkLauncher {
 			set;
 		}
 
+        public string ModFolder
+        {
+            get;
+            set;
+        }
+
 		public static XmlSettings FromInstructionSeq(IEnumerable<PatchInstruction> instrSeq) {
 			return new XmlSettings() {
 				Instructions = instrSeq?.Select(XmlInstruction.FromInstruction).ToList() ?? new List<XmlInstruction>()

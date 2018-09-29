@@ -15,7 +15,7 @@ namespace AppInfoDLLProj
 		{
 			AppInfo ai = new AppInfo();
 			ai.AppName = "POE2";
-			ai.AppVersion = "1.0.2.89";
+			ai.AppVersion = "1.0.2.90";
 			ai.BaseDirectory = folderInfo;
 			ai.Executable = new FileInfo(Combine(ai.BaseDirectory.ToString(), "PillarsOfEternityII.exe"));
 			//ai.IconLocation = new FileInfo("D:/Games/Tyranny/goggame-1266051739.ico");

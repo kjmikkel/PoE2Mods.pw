@@ -66,6 +66,11 @@ namespace PatchworkLauncher {
 			Manager.Command_ChangeFolder();
 		}
 
+        private void guiChangeModFolder_Click(object sender, EventArgs e)
+        {
+            Manager.Command_ChangeModFolder();
+        }
+
 		private void guiTestRun_Click(object sender, EventArgs e)
 		{
 			Manager.Command_TestRun();
