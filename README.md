@@ -1,4 +1,4 @@
-# PoE2Mods.pw
+# PoE2 Patchwork
 Modding framework for Pillars of Eternity 2
 
 This framework allows you to make changes to almost the entire gamut of PoE2's codebase.  Much like PoE was, PoE2's code appears to be pretty much straight non-obfuscated Unity code, so extremely easy and fun to change to your liking.
@@ -59,7 +59,7 @@ To reverse this process and remove mods (for the excellent FrostFG, thanks buddy
 
 # RELEASE NOTES
 
-2.1 - Removed the mods from the framework and made some minor tweaks to the GUI (mainly adding a preferred mod folder, as it may not be the same as the Framework folder itself). Added a batch file to easily open the needed assembly for modding, and updated the Github Readme file.
+2.2 - Removed the mods from the framework and made some minor tweaks to the GUI (mainly adding a preferred mod folder, as it may not be the same as the Framework folder itself). Added a batch file to easily open the needed assembly for modding, and updated the Github Readme file.
 
 * Forked from https://github.com/SonicZentropy/PoE2Mods.pw, all mentions about individual mods in the below text can be ignored as it pertains to this repo.
 
