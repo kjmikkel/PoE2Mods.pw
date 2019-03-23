@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using Patchwork;
 using Patchwork.AutoPatching;
 using Patchwork.Engine;
 using Patchwork.Engine.Utility;
@@ -30,7 +29,6 @@ namespace PatchworkLauncher
 
     public class LaunchManager
     {
-
         private guiHome _home;
 
         private guiMods _mods;
@@ -59,7 +57,7 @@ namespace PatchworkLauncher
         //these path specifications seem to be the most compatible between operating systems
         private static readonly string _pathHistoryXml = Path.Combine(".", "history.pw.xml");
         private static readonly string _pathSettings = Path.Combine(".", "settings.pw.xml");
-        private static readonly string _pathGameInfoAssembly = Path.Combine(".", "AppInfo.dll");
+        private string _pathGameInfoAssembly => Path.Combine(".", "AppInfo.dll");
         private static readonly string _pathLogFile = Path.Combine(".", "log.txt");
         private static readonly string _pathPrefsFile = Path.Combine(".", "preferences.pw.xml");
         private static readonly string _pathReadme = Path.Combine(".", "readme.txt");
@@ -103,6 +101,33 @@ namespace PatchworkLauncher
             }
         }
 
+        public async void Command_Bake_Mods_Into_Game()
+        {
+            // Only do the patching
+            await Command_Patch();
+            MessageBox.Show("Game patched");
+        }
+
+        public void Command_Restore_Original_Unmodded_File()
+        {
+            try
+            {
+                if (Directory.Exists(BaseFolder))
+                {
+                    string managedFolder = Path.Combine(BaseFolder, "PillarsOfEternityII_Data", "Managed");
+                    if (File.Exists(managedFolder + @"\Assembly-CSharp.dll.pw.original"))
+                    {
+                        File.Copy(managedFolder + @"\Assembly-CSharp.dll.pw.original", managedFolder + @"\Assembly-CSharp.dll");
+                    }
+                }
+
+                MessageBox.Show("Origional files restored");
+            } catch (Exception exp)
+            {
+                MessageBox.Show("Could not restore original file: " + exp.Message);
+            }
+        }
+
         private Image TryOpenIcon(FileInfo iconFile)
         {
             if (iconFile?.Exists != true)
@@ -132,8 +157,6 @@ namespace PatchworkLauncher
             private set;
         }
 
-
-
         public LaunchManager()
         {
             //the following is needed on linux... the current directory must be the Mono executable, which is bad.
@@ -157,10 +180,6 @@ namespace PatchworkLauncher
                 Preferences = prefs;
                 Logger =
                     new LoggerConfiguration().WriteTo.File(_pathLogFile, LogEventLevel.Verbose).MinimumLevel.Is(Preferences.MinimumEventLevel).CreateLogger();
-                AppInfoFactory gameInfoFactory;
-
-                gameInfoFactory = !File.Exists(_pathGameInfoAssembly) ? null : PatchingHelper.LoadAppInfoFactory(_pathGameInfoAssembly);
-
 
                 var settings = new XmlSettings();
                 var history = new XmlHistory();
@@ -183,6 +202,11 @@ namespace PatchworkLauncher
                 {
                     Command_Display_Error("Read settings file", _pathSettings, ex, "Patch list and other settings will be reset.");
                 }
+
+#if DEBUG
+                settings.BaseFolder = @"D:\Program Files (x86)\GOG Galaxy\Games\Pillars of Eternity II Deadfire";
+                settings.ModFolder = @"D:\Program Files (x86)\GOG Galaxy\Games\Pillars of Eternity II Deadfire\Mods";
+#endif
 
                 // Folder dialog
                 string folderDialogReason = null;
@@ -239,6 +263,7 @@ namespace PatchworkLauncher
                     AppName = "No AppInfo.dll",
                 };
 
+                AppInfoFactory gameInfoFactory = File.Exists(_pathGameInfoAssembly) ? PatchingHelper.LoadAppInfoFactory(_pathGameInfoAssembly) : null;
                 AppInfo = gameInfoFactory?.CreateInfo(new DirectoryInfo(BaseFolder)) ?? defaultAppInfo;
                 AppInfo.AppVersion = AppInfo.AppVersion ?? "version??";
                 var icon = TryOpenIcon(AppInfo.IconLocation) ?? _home.Icon.ToBitmap();
@@ -495,13 +520,18 @@ namespace PatchworkLauncher
             {
                 _home.Invoke((Action)(() =>
                 {
+
                     if (State.Value == LaunchManagerState.GameRunning)
                     {
-                        _home.Hide();
-                        _icon.Visible = true;
-                        _icon.ShowBalloonTip(1000, "Launching",
-                            "Launching the application. The launcher will remain in the tray for cleanup.",
-                            ToolTipIcon.Info);
+                        // Only Windows has native support for icon trays, so for this is only for Windows
+                        if (IsWindows)
+                        {
+                            _home.Hide();
+                            _icon.Visible = true;
+                            _icon.ShowBalloonTip(1000, "Launching",
+                                "Launching the application. The launcher will remain in the tray for cleanup.",
+                                ToolTipIcon.Info);
+                        }
                     }
                     else
                     {
@@ -510,6 +540,33 @@ namespace PatchworkLauncher
                 }));
             };
             State.Value = process.Start() ? LaunchManagerState.GameRunning : LaunchManagerState.Idle;
+        }
+
+        public static bool IsLinux
+        {
+            get
+            {
+                int p = (int)Environment.OSVersion.Platform;
+                return (p == 4) || (p == 6) || (p == 128);
+            }
+        }
+
+        public static bool IsWindows
+        {
+            get
+            {
+                PlatformID id = Environment.OSVersion.Platform;
+                return id.HasFlag(PlatformID.Win32NT) || id.HasFlag(PlatformID.Win32S) || id.HasFlag(PlatformID.Win32Windows) || id.HasFlag(PlatformID.WinCE);
+            }
+        }
+
+        public static bool IsMacOS
+        {
+            get
+            {
+                PlatformID id = Environment.OSVersion.Platform;
+                return id.HasFlag(PlatformID.MacOSX);
+            }
         }
 
         public Image ProgramIcon

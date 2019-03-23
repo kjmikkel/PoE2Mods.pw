@@ -41,6 +41,8 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.bakeModsIntoGame = new System.Windows.Forms.Button();
+            this.restoreOriginal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.guiGameIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +56,6 @@
             this.guiGameName.Size = new System.Drawing.Size(309, 43);
             this.guiGameName.TabIndex = 0;
             this.guiGameName.Text = "Pillars of Eternity";
-            this.guiGameName.Click += new System.EventHandler(this.guiGameName_Click);
             // 
             // guiGameVersion
             // 
@@ -98,7 +99,7 @@
             this.guiLaunchNoMods.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Azure;
             this.guiLaunchNoMods.FlatAppearance.MouseOverBackColor = System.Drawing.Color.AliceBlue;
             this.guiLaunchNoMods.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiLaunchNoMods.Location = new System.Drawing.Point(21, 143);
+            this.guiLaunchNoMods.Location = new System.Drawing.Point(21, 147);
             this.guiLaunchNoMods.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guiLaunchNoMods.Name = "guiLaunchNoMods";
             this.guiLaunchNoMods.Size = new System.Drawing.Size(598, 63);
@@ -115,7 +116,7 @@
             this.guiActiveMods.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Azure;
             this.guiActiveMods.FlatAppearance.MouseOverBackColor = System.Drawing.Color.AliceBlue;
             this.guiActiveMods.Font = new System.Drawing.Font("Georgia", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiActiveMods.Location = new System.Drawing.Point(478, 214);
+            this.guiActiveMods.Location = new System.Drawing.Point(478, 360);
             this.guiActiveMods.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guiActiveMods.Name = "guiActiveMods";
             this.guiActiveMods.Size = new System.Drawing.Size(141, 36);
@@ -131,7 +132,7 @@
             this.guiPwVersion.BackColor = System.Drawing.Color.Transparent;
             this.guiPwVersion.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guiPwVersion.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.guiPwVersion.Location = new System.Drawing.Point(201, 256);
+            this.guiPwVersion.Location = new System.Drawing.Point(201, 402);
             this.guiPwVersion.Name = "guiPwVersion";
             this.guiPwVersion.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.guiPwVersion.Size = new System.Drawing.Size(35, 18);
@@ -146,14 +147,13 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label2.Location = new System.Drawing.Point(118, 255);
+            this.label2.Location = new System.Drawing.Point(118, 401);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label2.Size = new System.Drawing.Size(80, 18);
             this.label2.TabIndex = 7;
             this.label2.Text = "Version:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // guiGameIcon
             // 
@@ -173,7 +173,7 @@
             this.guiChangeFolder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Azure;
             this.guiChangeFolder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.AliceBlue;
             this.guiChangeFolder.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guiChangeFolder.Location = new System.Drawing.Point(21, 214);
+            this.guiChangeFolder.Location = new System.Drawing.Point(21, 360);
             this.guiChangeFolder.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.guiChangeFolder.Name = "guiChangeFolder";
             this.guiChangeFolder.Size = new System.Drawing.Size(160, 36);
@@ -204,7 +204,7 @@
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold);
-            this.linkLabel1.Location = new System.Drawing.Point(18, 254);
+            this.linkLabel1.Location = new System.Drawing.Point(18, 400);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(103, 18);
             this.linkLabel1.TabIndex = 11;
@@ -237,7 +237,7 @@
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Azure;
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.AliceBlue;
             this.button2.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(187, 214);
+            this.button2.Location = new System.Drawing.Point(187, 360);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(160, 36);
@@ -246,13 +246,51 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.MouseCaptureChanged += new System.EventHandler(this.guiChangeModFolder_Click);
             // 
+            // bakeModsIntoGame
+            // 
+            this.bakeModsIntoGame.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bakeModsIntoGame.BackColor = System.Drawing.SystemColors.Control;
+            this.bakeModsIntoGame.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.bakeModsIntoGame.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Azure;
+            this.bakeModsIntoGame.FlatAppearance.MouseOverBackColor = System.Drawing.Color.AliceBlue;
+            this.bakeModsIntoGame.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bakeModsIntoGame.Location = new System.Drawing.Point(21, 218);
+            this.bakeModsIntoGame.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bakeModsIntoGame.Name = "bakeModsIntoGame";
+            this.bakeModsIntoGame.Size = new System.Drawing.Size(598, 63);
+            this.bakeModsIntoGame.TabIndex = 14;
+            this.bakeModsIntoGame.Text = "Bake mods into game";
+            this.bakeModsIntoGame.UseVisualStyleBackColor = false;
+            this.bakeModsIntoGame.Click += new System.EventHandler(this.bakeModsIntoGame_Click);
+            // 
+            // restoreOriginal
+            // 
+            this.restoreOriginal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.restoreOriginal.BackColor = System.Drawing.SystemColors.Control;
+            this.restoreOriginal.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.restoreOriginal.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Azure;
+            this.restoreOriginal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.AliceBlue;
+            this.restoreOriginal.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.restoreOriginal.Location = new System.Drawing.Point(21, 289);
+            this.restoreOriginal.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.restoreOriginal.Name = "restoreOriginal";
+            this.restoreOriginal.Size = new System.Drawing.Size(598, 63);
+            this.restoreOriginal.TabIndex = 15;
+            this.restoreOriginal.Text = "Restore original unmodded game";
+            this.restoreOriginal.UseVisualStyleBackColor = false;
+            this.restoreOriginal.Click += new System.EventHandler(this.restoreOriginal_Click);
+            // 
             // guiHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Linen;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(639, 281);
+            this.ClientSize = new System.Drawing.Size(639, 427);
+            this.Controls.Add(this.restoreOriginal);
+            this.Controls.Add(this.bakeModsIntoGame);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.linkLabel1);
@@ -294,6 +332,8 @@
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bakeModsIntoGame;
+        private System.Windows.Forms.Button restoreOriginal;
     }
 }
 

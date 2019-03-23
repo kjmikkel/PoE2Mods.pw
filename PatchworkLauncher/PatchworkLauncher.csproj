@@ -254,8 +254,8 @@ if exist $(TargetDir)%25Framework%25.zip del $(TargetDir)%25Framework%25.zip
 izarcc -a -r -p -cx $(TargetDir)%25Framework%25.zip Framework\</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del /s /q $(TargetDir)*.*
-rmdir /S /q *</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
     <ItemGroup>

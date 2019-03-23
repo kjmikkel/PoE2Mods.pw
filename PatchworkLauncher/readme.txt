@@ -31,3 +31,16 @@ Using the program is straight-forward:
    **Note:** Mod files so chosen will normally be copied to the `Mods` folder.
 
 6. Use *Launch with Mods* and *Launch without Mods* to start the game.
+
+:: Advanced features ::
+
+If you want to install mods permanently, you can do so using the following instructions:
+
+1. Do step 1-5 from the previous section
+
+2. Use the "Bake mods into game" to bake the mods into the game.
+
+If you want to revert to the original game, use the Restore "original unmodded game"
+
+NOTE: 
+Patching a game that has been modified using this application may lead to unexpected results - it is therefore advised to validate your game after patching, and then reapply the mods.
